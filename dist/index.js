@@ -64,4 +64,55 @@ const users = [
 ];
 const loggedInUser = users.find((u) => u.name === "Oby");
 console.log(loggedInUser?.age);
+// 名前付き関数
+function greet(name) {
+    return 'hello' + name;
+}
+// 関数式
+let greet2 = function (name) {
+    return 'hello' + name;
+};
+// アロー関数
+let greet3 = (name) => {
+    return 'hello' + name;
+};
+//アロー関数の省略記法
+let greet4 = (name) => 'hello' + name;
+// 関数コンストラクター
+let greet5 = new Function('name', `return "hello" + name `);
+// let log = (message: string, userId?: string) => {
+//   let time = new Date().toLocaleTimeString()
+//   console.log(time, message, userId || 'Nothing signed in')
+// }
+let log = (message, userId = "Nothing signed in") => {
+    let time = new Date().toLocaleTimeString();
+    console.log(time, message, userId);
+};
+log('hello koide');
+function sum(numbers) {
+    return numbers.reduce((total, n) => total + n, 0);
+}
+console.log(sum([2, 2, 5, 3, 2]));
+let sumVariadic = (...numbers) => {
+    return numbers.reduce((total, n) => total + n, 0);
+};
+console.log(sumVariadic(2, 2, 5, 3, 2));
+function* createFibonacci() {
+    let a = 0;
+    let b = 1;
+    while (true) {
+        yield a;
+        [a, b] = [b, a + b];
+    }
+}
+let f = createFibonacci();
+f.next();
+f.next();
+console.log(f.next());
+console.log(f.next());
+let loglog = (message, userId = 'nothing') => {
+    let time = new Date().toLocaleTimeString;
+    console.log(time, message, userId);
+};
+loglog('koide');
 //# sourceMappingURL=index.js.map
