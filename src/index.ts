@@ -161,3 +161,124 @@ let loglog:Log = (message, userId = 'nothing') => {
   console.log(time, message, userId)
 } 
 loglog('koide')
+
+// 文脈的型付け
+function times(
+  f: (index: number) => void,
+  n: number
+) {
+  for (let i = 0; i < n; i++){
+    f(i)
+  }
+}
+
+console.log(times(n => console.log(n), 4))
+
+
+// 呼び出しシグネスチャの省略記法
+type Log2 = (message: string, userId?: string) => void
+
+// 完全なシグネスチャ記法
+type Log3 = {(message: string, userId?: string):void}
+
+
+// 関数のオーバーロード
+type Reserve = {
+  (from: Date, to: Date, destination: string,): void
+  (from: Date, destination: string): void
+}
+
+let reserve: Reserve = (
+  from: Date,
+  toOrDestination: Date | string,
+  destination?: string
+  ) => {
+    if(toOrDestination instanceof Date && destination !== undefined){
+      //宿泊先を予約する
+    } else if(typeof toOrDestination === 'string') {
+      // 日帰り旅行を予約する
+    }
+}
+
+// type CreateElement = {
+//   (tag: 'a'): HTMLAnchorElement
+//   (tag: 'canvas'): HTMLCanvasElement
+//   (tag: 'table'): HTMLTableElement
+//   (tag: 'string'): HTMLElement
+// }
+
+// let createElement: CreateElement = (tag: string): HTMLElement => {
+
+// }
+
+type Filter<T> = {
+  (array: T[], f: (item: T) => boolean): T[]
+}
+
+type StringFilter = Filter<string>
+let stringFileter: StringFilter = (array, f) => {
+  return array
+}
+
+
+// function map(array: unknown[], f: (item: unknown) => unknown): unknown[] {
+//   let result = []
+//   for (let i = 0; i < array.length; i++) {
+//     result[i] = f(array[i])
+//   }
+//   return result
+// } 
+
+// map 関数のジェネリクス化
+
+// type MapFilter<U> = {
+//   (array: U[], f: (item: U) => boolean): U[]
+// }
+function map<T, U>(array: T[], f: (item: T) => U): U[] {
+  let result = []
+  for (let i = 0; i < array.length; i++) {
+    result[i] = f(array[i])
+  }
+  return result
+}
+
+
+// チェスのゲームを表す
+class Game{}
+
+// チェスの駒
+
+class Piece{
+  protected position: Position
+  constructor(
+    private readonly color: Color,
+    x: X,
+    rank: Rank
+  ){
+    this.position = new Position(x, rank)
+  }
+}
+
+class King extends Piece {}
+class Queen extends Piece {}
+class Bishop extends Piece {}
+class Knight extends Piece {}
+class Rook extends Piece {}
+class Pawn extends Piece {}
+
+type Color = 'Black' | 'White'
+type X = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H'
+
+// コマの位置
+class Position {
+  constructor(
+    private x: X,
+    private rank: Rank
+    ){}
+}
+  
+  
+
+
+
+

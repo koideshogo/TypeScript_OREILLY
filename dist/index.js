@@ -115,4 +115,11 @@ let loglog = (message, userId = 'nothing') => {
     console.log(time, message, userId);
 };
 loglog('koide');
+// 文脈的型付け
+function times(f, n) {
+    for (let i = 0; i < n; i++) {
+        f(i);
+    }
+}
+console.log(times(n => console.log(n), 4));
 //# sourceMappingURL=index.js.map
